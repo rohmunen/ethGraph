@@ -1,5 +1,6 @@
-import ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import Graph from "./components/Graph";
 
 
-ReactDOM.render(<Graph />, document.getElementById("root"))
+const root = ReactDOMClient.createRoot(document.getElementById("root"))
+root.render(<Graph />)

@@ -1,7 +1,7 @@
 export const discretenessOptions = [
-  { name: 'hours', number: 1 },
+  { name: 'weeks', number: 168 },
   { name: 'days', number: 24 },
-  { name: 'weeks', number: 168 }
+  { name: 'hours', number: 1 },
 ]
 
 export const valueOptions = [

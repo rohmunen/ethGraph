@@ -9,9 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { useFilter } from '../../hooks/useFilter';
-import { discretenessOptions, valueOptions } from '../../utils/graphUtils';
-import { Data } from '../../utils/types';
+import { IFilteredData } from '../../utils/types';
 
 ChartJS.register(
   CategoryScale,
@@ -37,29 +35,16 @@ export const options = {
 };
 
 type Props = {
-  data: Data[]
-  dates: string[]
+  data: IFilteredData
 }
 
-const Graph = ({ data, dates }: Props) => {
-  const {
-    handleDiscretenessChange,
-    filtered,
-    handleValueChange
-  } = useFilter({ data, discretenessOptions, dates })
-
+const Graph = ({ data }: Props) => {
   return (
     <>
-      <select onChange={ handleDiscretenessChange }>
-        { discretenessOptions.map(opt => <option value={ opt.name }>{ opt.name } </option>) }
-      </select>
-      <select onChange={ handleValueChange }>
-        { valueOptions.map(opt => <option value={ opt.value }>{ opt.displayName } </option>) }
-      </select>
       {
-        filtered && <Line
+        data && <Line
           options={ options }
-          data={ filtered }
+          data={ data }
         />
       }
     </>

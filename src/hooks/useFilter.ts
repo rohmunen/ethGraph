@@ -1,17 +1,9 @@
 import moment from "moment";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Data, IDiscretenessOptions, ValueTypes } from "../utils/types";
+import { discretenessOptions } from "../utils/graphUtils";
+import { IData, IFilteredData, IDiscretenessOptions, ValueTypes, IAveragedData } from "../utils/types";
 
-export interface FilterProps {
-  data: Data[];
-  discretenessOptions: IDiscretenessOptions[];
-  dates: string[]
-}
 
-interface IData {
-  label: string,
-  averaged: number
-}
 
 const sliceIntoChunks = <T,>(arr: T[], chunkSize: number): T[][] => {
   const res: T[][] = [];
@@ -22,7 +14,7 @@ const sliceIntoChunks = <T,>(arr: T[], chunkSize: number): T[][] => {
   return res;
 }
 
-export const filterByDate = (data: IData[], startDate: string, endDate: string) => {
+export const filterByDate = (data: IAveragedData[], startDate: string, endDate: string) => {
   const labels: string[] = []
   const averages: number[] = []
   data = data.filter(item => moment(item.label.split(' ')[ 0 ], "YY-MM-DD").isBetween(moment(startDate, "YY-MM-DD"), moment(endDate, "YY-MM-DD"), undefined, "[]"))
@@ -41,8 +33,8 @@ export const filterByDate = (data: IData[], startDate: string, endDate: string) 
   }
 }
 
-const averageData = (arr: Data[][], value: ValueTypes) => {
-  const data: IData[] = []
+const averageData = (arr: IData[][], value: ValueTypes) => {
+  const data: IAveragedData[] = []
   arr.forEach((item) => {
     let count = 0
     const label = item[ 0 ].time.split(' ')[ 0 ]
@@ -55,21 +47,16 @@ const averageData = (arr: Data[][], value: ValueTypes) => {
   return data
 }
 
-interface filteredData {
-  labels: string[];
-  datasets: {
-    label: string;
-    data: number[];
-    borderColor: string;
-    backgroundColor: string;
-  }[];
+type Props = {
+  data: IData[];
+  dates: string[]
 }
 
-export const useFilter = ({ data, discretenessOptions, dates }: FilterProps) => {
+export const useFilter = ({ data, dates }: Props) => {
   const [ discreteness, setDiscreteness ] = useState<IDiscretenessOptions>(discretenessOptions[ 0 ])
   const [ value, setValue ] = useState<ValueTypes>('gasPrice')
-  const [ filtered, setFiltered ] = useState<filteredData>()
-  const [ averagedData, setAveragedData ] = useState<IData[]>([])
+  const [ filtered, setFiltered ] = useState<IFilteredData>()
+  const [ averagedData, setAveragedData ] = useState<IAveragedData[]>([])
   useEffect(() => {
     const filteredData = [ ...data ];
     setAveragedData(averageData(sliceIntoChunks(filteredData, discreteness.number), value))

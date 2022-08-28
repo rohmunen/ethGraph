@@ -1,6 +1,5 @@
 import moment from "moment";
-import { ChangeEvent, useEffect, useState } from "react";
-import { Data, IDiscretenessOptions, ValueTypes } from "../utils/types";
+import { useEffect, useState } from "react";
 
 type DateSliderProps = {
   dates: string[],

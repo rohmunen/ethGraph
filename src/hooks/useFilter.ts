@@ -14,7 +14,7 @@ const sliceIntoChunks = <T,>(arr: T[], chunkSize: number): T[][] => {
   return res;
 }
 
-export const filterByDate = (data: IAveragedData[], startDate: string, endDate: string) => {
+export const filterByDate = (data: IAveragedData[], startDate: string, endDate: string, value: string) => {
   const labels: string[] = []
   const averages: number[] = []
   data = data.filter(item => moment(item.label.split(' ')[ 0 ], "YY-MM-DD").isBetween(moment(startDate, "YY-MM-DD"), moment(endDate, "YY-MM-DD"), undefined, "[]"))
@@ -25,7 +25,7 @@ export const filterByDate = (data: IAveragedData[], startDate: string, endDate: 
   return {
     labels: labels,
     datasets: [ {
-      label: 'Gas Prices',
+      label: value,
       data: averages,
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -62,7 +62,7 @@ export const useFilter = ({ data, dates }: Props) => {
     setAveragedData(averageData(sliceIntoChunks(filteredData, discreteness.number), value))
   }, [ discreteness, value, data ])
   useEffect(() => {
-    setFiltered(filterByDate(averagedData, dates[ 0 ], dates[ 1 ]))
+    setFiltered(filterByDate(averagedData, dates[ 0 ], dates[ 1 ], value))
   }, [ averagedData.length, dates, value ]);
 
 

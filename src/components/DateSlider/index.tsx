@@ -1,9 +1,8 @@
-import moment, { parseTwoDigitYear } from 'moment';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import React from 'react';
-import { useEffect, useState } from 'react';
 import { useDateSlider } from '../../hooks/useDateSlider';
+import styles from './styles.module.scss'
 
 type Props = {
   dates: string[],
@@ -14,7 +13,7 @@ type Props = {
 export const DateSlider = ({ dates, setDates }: Props) => {
   const { startDateLabel, endDateLabel, onDateChange, maxRange, currentValue } = useDateSlider({ dates, setDates })
   return (
-    <>
+    <div className={ styles.slider }>
       <p>
         { startDateLabel }
       </p>
@@ -28,6 +27,6 @@ export const DateSlider = ({ dates, setDates }: Props) => {
       <p>
         { endDateLabel }
       </p>
-    </>
+    </div>
   )
 }

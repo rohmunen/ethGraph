@@ -1,0 +1,10 @@
+.slider {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  p {
+    white-space: nowrap;
+    padding: 0 40px;
+    margin: 0;
+  }
+}

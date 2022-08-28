@@ -75,11 +75,7 @@ export const useFilter = ({ data, discretenessOptions, dates }: FilterProps) => 
     setAveragedData(averageData(sliceIntoChunks(filteredData, discreteness.number), value))
   }, [ discreteness, value, data ])
   useEffect(() => {
-    if (discreteness.name === 'hours') {
-      setFiltered(filterByDate(averagedData, '22-08-03', '22-08-05'))
-    } else {
-      setFiltered(filterByDate(averagedData, dates[ 0 ], dates[ 1 ]))
-    }
+    setFiltered(filterByDate(averagedData, dates[ 0 ], dates[ 1 ]))
   }, [ averagedData.length, dates, value ]);
 
 

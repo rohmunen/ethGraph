@@ -3,6 +3,6 @@ import Graph from ".";
 import '@testing-library/jest-dom';
 
 test('renders graph', () => {
-  render(<Graph data-testid="graph"/>)
+  render(<Graph data={ [] } dates={ [ '22-01-01', '23-01-01' ] } data-testid="graph" />)
   expect(screen.getByText(/Graph component/i)).toBeInTheDocument()
 })

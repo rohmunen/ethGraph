@@ -14,6 +14,7 @@ const config: Config = {
   moduleNameMapper: {
     '.*\\.(css|less|styl|scss|sass)$': "identity-obj-proxy",
   },
+  setupFilesAfterEnv: ["<rootDir>/setupTests.ts"]
 };
 
 export default config;

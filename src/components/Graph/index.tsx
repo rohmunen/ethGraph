@@ -39,6 +39,7 @@ const Graph = ({ data }: Props) => {
     <>
       {
         data && <Line
+          data-testid="graph"
           options={ options }
           data={ data }
         />

@@ -1,5 +1,6 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
+import { CONSTANTS } from "../utils/constants";
 
 type DateSliderProps = {
   dates: string[],
@@ -24,8 +25,8 @@ export const useDateSlider = ({ dates, setDates }: DateSliderProps) => {
   }, [ currentValue ])
 
   const calculateDateRange = (dates: string[]) => {
-    let startDate = moment(dates[ 0 ], "YY-MM-DD")
-    let endDate = moment(dates[ 1 ], "YY-MM-DD")
+    let startDate = moment(dates[ 0 ], CONSTANTS.DATE_FORMAT)
+    let endDate = moment(dates[ 1 ], CONSTANTS.DATE_FORMAT)
     return endDate.diff(startDate, 'days')
   }
 
@@ -36,8 +37,8 @@ export const useDateSlider = ({ dates, setDates }: DateSliderProps) => {
 
   const updateDates = () => {
     let [ min, max ] = currentValue
-    let start = moment(dates[ 0 ], "YY-MM-DD").add(min, 'd')
-    let end = moment(dates[ 1 ], "YY-MM-DD").subtract(maxRange - max, 'd')
+    let start = moment(dates[ 0 ], CONSTANTS.DATE_FORMAT).add(min, 'd')
+    let end = moment(dates[ 1 ], CONSTANTS.DATE_FORMAT).subtract(maxRange - max, 'd')
     setStartDateLabel(formatDate(start))
     setEndDateLabel(formatDate(end))
     setDates([ formatDate(start), formatDate(end) ])

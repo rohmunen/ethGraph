@@ -9,20 +9,21 @@ import { IData } from "../../utils/types"
 import styles from './styles.module.scss'
 
 export const Home = () => {
-  const apiData = [ '22-01-01', '22-08-05' ]
-  const [ dates, setDates ] = useState(apiData)
+  const [ filterDates, setFilterDates ] = useState<string[]>([])
+  const [ sliderDates, setSliderDates ] = useState<string[]>([])
   const [ data, setData ] = useState<IData[]>([])
-
   useEffect(() => {
-    getGasPrices(setData)
+    getGasPrices(
+      setData,
+      setFilterDates,
+      setSliderDates
+    )
   }, [])
-
   const {
     filtered,
     handleDiscretenessChange,
     handleValueChange
-  } = useFilter({ data, dates })
-  
+  } = useFilter({ data, filterDates })
   return (
     <main className={ styles.content }>
       <div className={ styles.content__controls }>
@@ -34,7 +35,7 @@ export const Home = () => {
         </Select>
       </div>
       <Graph data={ filtered } />
-      <DateSlider dates={ apiData } setDates={ setDates } />
+      { sliderDates.length > 0 && <DateSlider dates={ sliderDates } setDates={ setFilterDates } /> }
     </main >
   )
 }

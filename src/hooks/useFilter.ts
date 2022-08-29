@@ -2,6 +2,7 @@ import moment from "moment";
 import { ChangeEvent, useEffect, useState } from "react";
 import { discretenessOptions } from "../utils/graphUtils";
 import { IData, IFilteredData, IDiscretenessOptions, ValueTypes, IAveragedData } from "../utils/types";
+import { CONSTANTS } from "../utils/constants";
 
 const sliceIntoChunks = <T,>(arr: T[], chunkSize: number): T[][] => {
   const res: T[][] = [];
@@ -15,7 +16,7 @@ const sliceIntoChunks = <T,>(arr: T[], chunkSize: number): T[][] => {
 export const filterByDate = (data: IAveragedData[], startDate: string, endDate: string, value: string) => {
   const labels: string[] = []
   const averages: number[] = []
-  data = data.filter(item => moment(item.label.split(' ')[ 0 ], "YY-MM-DD").isBetween(moment(startDate, "YY-MM-DD"), moment(endDate, "YY-MM-DD"), undefined, "[]"))
+  data = data.filter(item => moment(item.label.split(' ')[ 0 ], CONSTANTS.DATE_FORMAT).isBetween(moment(startDate, CONSTANTS.DATE_FORMAT), moment(endDate, CONSTANTS.DATE_FORMAT), undefined, "[]"))
   data.forEach((item) => {
     labels.push(item.label)
     averages.push(item.averaged)

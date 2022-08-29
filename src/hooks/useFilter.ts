@@ -58,8 +58,7 @@ export const useFilter = ({ data, filterDates }: Props) => {
   const [ averagedData, setAveragedData ] = useState<IAveragedData[]>([])
 
   useEffect(() => {
-    const filteredData = [ ...data ];
-    setAveragedData(averageData(sliceIntoChunks(filteredData, discreteness.number), value))
+    setAveragedData(averageData(sliceIntoChunks(data, discreteness.number), value))
   }, [ discreteness, value, data ])
 
   useEffect(() => {

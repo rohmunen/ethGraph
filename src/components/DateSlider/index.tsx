@@ -12,6 +12,7 @@ type Props = {
 
 export const DateSlider = ({ dates, setDates }: Props) => {
   const { startDateLabel, endDateLabel, onDateChange, maxRange, currentValue } = useDateSlider({ dates, setDates })
+  
   return (
     <div className={ styles.slider }>
       <p>

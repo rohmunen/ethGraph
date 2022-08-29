@@ -23,7 +23,6 @@ export const useDateSlider = ({ dates, setDates }: DateSliderProps) => {
     updateDates()
   }, [ currentValue ])
 
-
   const calculateDateRange = (dates: string[]) => {
     let startDate = moment(dates[ 0 ], "YY-MM-DD")
     let endDate = moment(dates[ 1 ], "YY-MM-DD")

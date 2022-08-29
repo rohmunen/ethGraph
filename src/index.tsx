@@ -1,5 +1,4 @@
 import * as ReactDOMClient from 'react-dom/client';
-import Graph from "./components/Graph";
 import { Home } from './pages/Home';
 
 

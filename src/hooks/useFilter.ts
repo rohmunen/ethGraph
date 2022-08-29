@@ -3,8 +3,6 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { discretenessOptions } from "../utils/graphUtils";
 import { IData, IFilteredData, IDiscretenessOptions, ValueTypes, IAveragedData } from "../utils/types";
 
-
-
 const sliceIntoChunks = <T,>(arr: T[], chunkSize: number): T[][] => {
   const res: T[][] = [];
   for (let i = 0; i < arr.length; i += chunkSize) {
@@ -57,14 +55,15 @@ export const useFilter = ({ data, dates }: Props) => {
   const [ value, setValue ] = useState<ValueTypes>('gasPrice')
   const [ filtered, setFiltered ] = useState<IFilteredData>()
   const [ averagedData, setAveragedData ] = useState<IAveragedData[]>([])
+
   useEffect(() => {
     const filteredData = [ ...data ];
     setAveragedData(averageData(sliceIntoChunks(filteredData, discreteness.number), value))
   }, [ discreteness, value, data ])
+  
   useEffect(() => {
     setFiltered(filterByDate(averagedData, dates[ 0 ], dates[ 1 ], value))
   }, [ averagedData.length, dates, value ]);
-
 
   const handleDiscretenessChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newDiscreteness = event.target.value;
@@ -72,12 +71,14 @@ export const useFilter = ({ data, dates }: Props) => {
       setDiscreteness(discretenessOptions.find(a => a.name === newDiscreteness));
     }
   };
+
   const handleValueChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value as ValueTypes;
     if (value !== newValue) {
       setValue(newValue)
     }
   }
+
   return {
     handleDiscretenessChange,
     handleValueChange,

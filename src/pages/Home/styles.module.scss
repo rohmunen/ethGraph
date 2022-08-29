@@ -1,0 +1,11 @@
+.content {
+  padding: 20px;
+  label, select {
+    display: block;
+  }
+}
+
+.content__controls {
+  display: flex;
+  gap: 20px;
+}

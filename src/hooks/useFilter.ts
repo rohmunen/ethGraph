@@ -56,14 +56,19 @@ export const useFilter = ({ data, filterDates }: Props) => {
   const [ value, setValue ] = useState<ValueTypes>('gasPrice')
   const [ filtered, setFiltered ] = useState<IFilteredData>()
   const [ averagedData, setAveragedData ] = useState<IAveragedData[]>([])
+  const [ slicedData, setSlicedData ] = useState<IData[][]>([])
+  
+  useEffect(() => {
+    setSlicedData(sliceIntoChunks(data, discreteness.number))
+  }, [ data, discreteness ])
 
   useEffect(() => {
     setAveragedData(averageData(sliceIntoChunks(data, discreteness.number), value))
-  }, [ discreteness, value, data ])
+  }, [ slicedData, value ])
 
   useEffect(() => {
     setFiltered(filterByDate(averagedData, filterDates[ 0 ], filterDates[ 1 ], value))
-  }, [ averagedData.length, filterDates, value ]);
+  }, [ averagedData, filterDates ]);
 
   const handleDiscretenessChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newDiscreteness = event.target.value;

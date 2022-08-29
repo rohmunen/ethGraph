@@ -29,7 +29,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Ethereum'
+      text: 'Ethereum gas prices chart'
     }
   },
 };
